@@ -153,15 +153,20 @@ namespace EnglishService.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RegionId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("EnglishService.Models.Professional", b =>
@@ -192,6 +197,12 @@ namespace EnglishService.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<bool>("HasApplied")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsValidated")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -201,6 +212,9 @@ namespace EnglishService.Migrations
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
+
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Resume")
                         .IsRequired()
@@ -216,11 +230,33 @@ namespace EnglishService.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RegionId");
+
                     b.HasIndex("SpecializationId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Professionals");
+                    b.ToTable("Professionals", (string)null);
+                });
+
+            modelBuilder.Entity("EnglishService.Models.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PostCode")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Regions", (string)null);
                 });
 
             modelBuilder.Entity("EnglishService.Models.Specialization", b =>
@@ -241,7 +277,7 @@ namespace EnglishService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specializations");
+                    b.ToTable("Specializations", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -386,17 +422,31 @@ namespace EnglishService.Migrations
 
             modelBuilder.Entity("EnglishService.Models.Customer", b =>
                 {
+                    b.HasOne("EnglishService.Models.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EnglishService.Models.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Region");
+
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Professional", b =>
                 {
+                    b.HasOne("EnglishService.Models.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EnglishService.Models.Specialization", "Specialization")
                         .WithMany("Doctors")
                         .HasForeignKey("SpecializationId")
@@ -408,6 +458,8 @@ namespace EnglishService.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Region");
 
                     b.Navigation("Specialization");
 

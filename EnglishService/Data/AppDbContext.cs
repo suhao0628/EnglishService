@@ -20,6 +20,7 @@ public class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<Professional> Professionals { get; set; }
     public DbSet<Specialization> Specializations { get; set; }
     public DbSet<Customer> Customers { get; set; }
+    public DbSet<Region> Regions { get; set; }
 
 }
 

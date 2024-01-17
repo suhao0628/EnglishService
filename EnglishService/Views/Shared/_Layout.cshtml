@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+@using EnglishService.Utities;
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,8 +11,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EnglishService.styles.css" asp-append-version="true" />
+    @await this.RenderSectionAsync("Styles", required: false)
 </head>
 <body>
+
+    @RenderSection("head", required: false)
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -18,13 +25,34 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                            var user = await UserManager.FindByIdAsync(userId);
+
+                            if (!(await UserManager.IsInRoleAsync(user, GlobalConstants.CustomerRoleName) || await UserManager.IsInRoleAsync(user, GlobalConstants.ProfessionalRoleName)))
+                            {
+
+                                    <a class="dropdown-item" asp-area="" asp-controller="Doctor" asp-action="Apply">Apply for doctor</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Customer" asp-action="Create">Become a patient</a>
+                                
+                                <div class="dropdown">
+                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Finish your profile
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Doctor" asp-action="Apply">Apply for doctor</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Patient" asp-action="Create">Become a patient</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

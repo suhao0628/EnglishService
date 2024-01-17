@@ -21,7 +21,10 @@ namespace EnglishService.Models
 
         public string PhoneNumber { get; set; }
 
+        [ForeignKey(nameof(Region))]
+        public int RegionId { get; set; }
 
+        public virtual Region Region { get; set; }
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 

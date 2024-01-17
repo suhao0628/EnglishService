@@ -32,6 +32,10 @@ namespace EnglishService.Models
         public string Resume { get; set; }
 
 
+        [ForeignKey(nameof(Region))]
+        public int RegionId { get; set; }
+
+        public virtual Region Region { get; set; }
 
         [ForeignKey(nameof(Specialization))]
         public int SpecializationId { get; set; }
@@ -42,5 +46,9 @@ namespace EnglishService.Models
         public string UserId { get; set; }
 
         public virtual AppUser User { get; set; }
+
+        public bool HasApplied { get; set; }
+
+        public bool IsValidated { get; set; }
     }
 }
