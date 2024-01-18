@@ -4,6 +4,7 @@ using EnglishService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnglishService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240117121221_AddImage")]
+    partial class AddImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,7 +169,7 @@ namespace EnglishService.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Image", b =>
@@ -189,7 +192,7 @@ namespace EnglishService.Migrations
 
                     b.HasIndex("ProfessionalId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Professional", b =>
@@ -259,40 +262,7 @@ namespace EnglishService.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Professionals", (string)null);
-                });
-
-            modelBuilder.Entity("EnglishService.Models.Rating", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProfessionalId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProfessionalId");
-
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Professionals");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Region", b =>
@@ -312,7 +282,7 @@ namespace EnglishService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Regions", (string)null);
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Specialization", b =>
@@ -333,7 +303,7 @@ namespace EnglishService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specializations", (string)null);
+                    b.ToTable("Specializations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -533,25 +503,6 @@ namespace EnglishService.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EnglishService.Models.Rating", b =>
-                {
-                    b.HasOne("EnglishService.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EnglishService.Models.Professional", "Professional")
-                        .WithMany("Ratings")
-                        .HasForeignKey("ProfessionalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Professional");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("EnglishService.Models.AppRole", null)
@@ -627,8 +578,6 @@ namespace EnglishService.Migrations
             modelBuilder.Entity("EnglishService.Models.Professional", b =>
                 {
                     b.Navigation("Images");
-
-                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Specialization", b =>

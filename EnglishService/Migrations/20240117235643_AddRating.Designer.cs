@@ -4,6 +4,7 @@ using EnglishService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnglishService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240117235643_AddRating")]
+    partial class AddRating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,7 +169,7 @@ namespace EnglishService.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Image", b =>
@@ -189,7 +192,7 @@ namespace EnglishService.Migrations
 
                     b.HasIndex("ProfessionalId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Professional", b =>
@@ -259,7 +262,7 @@ namespace EnglishService.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Professionals", (string)null);
+                    b.ToTable("Professionals");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Rating", b =>
@@ -292,7 +295,7 @@ namespace EnglishService.Migrations
 
                     b.HasIndex("ProfessionalId");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Region", b =>
@@ -312,7 +315,7 @@ namespace EnglishService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Regions", (string)null);
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("EnglishService.Models.Specialization", b =>
@@ -333,7 +336,7 @@ namespace EnglishService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specializations", (string)null);
+                    b.ToTable("Specializations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

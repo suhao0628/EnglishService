@@ -11,6 +11,6 @@ namespace EnglishService.Models
 
         public string Description { get; set; }
 
-        public virtual ICollection<Professional> Doctors { get; set; } = new List<Professional>();
+        public virtual ICollection<Professional> Professionals { get; set; } = new List<Professional>();
     }
 }

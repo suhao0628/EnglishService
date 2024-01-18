@@ -1,0 +1,76 @@
+﻿@model ProfessionalListsVM
+@{
+    ViewBag.Title = $"Applied Professionals, Page {Model.PageNumber}";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<div class="container">
+    <div class="row">
+        @foreach (var professional in Model.Professionals)
+        {
+            <div class="col-4">
+                <div class="card">
+                    <img src="@professional.ImageUrl" class="card-img-top" alt="@professional.FullName">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@professional.FullName</h5>
+                        <p class="card-text text-center">@professional.SpecializationName - @professional.RegionName</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Age: @professional.Age</li>
+                        <li class="list-group-item">Email address: @professional.Email</li>
+                        <li class="list-group-item">Phone: @professional.PhoneNumber</li>
+                    </ul>
+                    <div class="card-body row">
+                        <div class="col-md-6 text-center">
+                            <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="Professional" asp-action="Verify" asp-route-professionalId="@professional.Id" asp-route-pageNumber="@Model.PageNumber">
+                                Verify
+                            </a>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <a type="button" class="btn btn-danger" asp-area="Admin" asp-controller="Professional" asp-action="Delete" asp-route-professionalId="@professional.Id" asp-route-pageNumber="@Model.PageNumber">
+                                Delete
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<nav>
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(!Model.HasPreviousPage ? "disabled" : string.Empty)">
+            <a class="page-link" asp-area="Administration" asp-controller="Professional" asp-action="AppliedProfessional" asp-route-id="@Model.PreviousPageNumber">Previous</a>
+        </li>
+        @for (int i = Model.PageNumber - 2; i < Model.PageNumber; i++)
+        {
+            if (i > 0)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-area="Administration" asp-controller="Professional" asp-action="AppliedProfessional" asp-route-id="@i">@i</a>
+                </li>
+            }
+        }
+        <li class="page-item active">
+            <span class="page-link">
+                @Model.PageNumber
+                <span class="sr-only">(current)</span>
+            </span>
+        </li>
+        @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 2; i++)
+        {
+            if (i <= Model.PagesCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-area="Administration" asp-controller="Professional" asp-action="AppliedProfessional" asp-route-id="@i">@i</a>
+                </li>
+            }
+        }
+        <li class="page-item @(!Model.HasNextPage ? "disabled" : string.Empty)">
+            <a class="page-link" asp-area="Administration" asp-controller="Professional" asp-action="AppliedProfessional" asp-route-id="@Model.NextPageNumber">Next</a>
+        </li>
+    </ul>
+</nav>

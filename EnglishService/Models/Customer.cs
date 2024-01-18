@@ -30,5 +30,8 @@ namespace EnglishService.Models
 
         public virtual AppUser User { get; set; }
 
+        public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+
+
     }
 }

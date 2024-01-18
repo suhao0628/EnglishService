@@ -19,7 +19,7 @@
             var seeders = new List<ISeeder>
                           {
                               //new RolesSeeder(),
-                              //new SpecializationsSeeder(),
+                              new SpecializationsSeeder(),
                               //new RegionSeeder(),
                               new AccountSeeder(),
                               //new DoctorsSeeder(),

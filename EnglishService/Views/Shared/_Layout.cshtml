@@ -30,6 +30,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Professional" asp-action="Index" asp-route-id="1">Professionals</a>
+                        </li>
+
                         @if (User.Identity.IsAuthenticated)
                         {
                             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -37,19 +42,13 @@
 
                             if (!(await UserManager.IsInRoleAsync(user, GlobalConstants.CustomerRoleName) || await UserManager.IsInRoleAsync(user, GlobalConstants.ProfessionalRoleName)))
                             {
-
-                                    <a class="dropdown-item" asp-area="" asp-controller="Doctor" asp-action="Apply">Apply for doctor</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Customer" asp-action="Create">Become a patient</a>
-                                
-                                <div class="dropdown">
-                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Finish your profile
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" asp-area="" asp-controller="Doctor" asp-action="Apply">Apply for doctor</a>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Patient" asp-action="Create">Become a patient</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Customer</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Professional" asp-action="Create">Apply for Professional</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Customer" asp-action="Create">Become a Customer</a>
                                     </div>
-                                </div>
+                                </li>
                             }
                         }
                         

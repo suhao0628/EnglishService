@@ -47,8 +47,11 @@ namespace EnglishService.Models
 
         public virtual AppUser User { get; set; }
 
-        public bool HasApplied { get; set; }
+        public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
-        public bool IsValidated { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+        public bool IsApplied { get; set; }
+
+        public bool IsApproved { get; set; }
     }
 }

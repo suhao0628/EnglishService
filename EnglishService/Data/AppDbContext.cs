@@ -21,6 +21,10 @@ public class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<Specialization> Specializations { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Region> Regions { get; set; }
+    public DbSet<Image> Images { get; set; }
+
+    public DbSet<Rating> Ratings { get; set; }
+
 
 }
 
