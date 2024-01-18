@@ -1,0 +1,156 @@
+﻿@model AppointmentsListCustomerVM
+@{
+    ViewBag.Title = "Your appointments";
+}
+
+@* @section head{
+    <style type="text/css">
+        body {
+            background-image: url('/img/appointment.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+} *@
+<div class="container jumbotron-opacity">
+    <h1 class="text-center">@ViewBag.Title</h1>
+
+    <hr />
+
+    @if (!@Model.Appointments.Any())
+    {
+        <div class="row">
+            <div class="col-lg-4 ml-lg-5">
+                <div class="about_text_2">
+                    <p>
+                        No customers have booked yet...
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (@Model.Appointments.Any())
+    {
+        <h2>Scheduling (@Model.Appointments.Count())</h2>
+
+        <table class="table table-bordered table-striped table-responsive-sm table-responsive-md ">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Appointment Time</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Town</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Confirm</th>
+                    <th scope="col">Decline</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appointment in Model.Appointments)
+                {
+                    <tr>
+                        <th scope="row">@appointment.DateTime</th>
+                        <td>
+                            @if (appointment.IsConfirmed == true)
+                            {
+                                <span class="badge badge-success">Confirmed</span>
+                            }
+                            else if (appointment.IsConfirmed == false)
+                            {
+                                <span class="badge badge-danger">Declined</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary">Pending</span>
+                            }
+                        </td>
+                        <td>@appointment.CustomerFullName</td>
+                        <td>@appointment.CustomerRegionName</td>
+                        <td>@appointment.CustomerPhoneNumber</td>
+                        <td>
+                            <form method="post">
+                                <button type="submit" class="btn btn-success text-white btn-sm"
+                                        asp-area="Professional" asp-controller="Appointment" asp-action="ConfirmAppointment" asp-route-appointmentId="@appointment.Id">
+                                    Confirm
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post">
+                                <button type="submit" class="btn btn-danger text-white btn-sm"
+                                        asp-area="Professional" asp-controller="Appointment" asp-action="DeclineAppointment" asp-route-appointmentId="@appointment.Id">
+                                    Decline
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @if (@Model.PastAppointments.Any())
+    {
+        <h2>History (@Model.PastAppointments.Count())</h2>
+
+        <table class="table table-bordered table-striped table-responsive-sm table-responsive-md ">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Date and Time</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Patient</th>
+                    <th scope="col">Town</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appointment in Model.PastAppointments)
+                {
+                    <tr>
+                        <th scope="row">@appointment.DateTime</th>
+                        <td>
+                            @if (appointment.IsConfirmed == true)
+                            {
+                                <span class="badge badge-success">Confirmed</span>
+                            }
+                            else if (appointment.IsConfirmed == false)
+                            {
+                                <span class="badge badge-danger">Declined</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary">Pending</span>
+                            }
+                        </td>
+                        <td>@appointment.CustomerFullName</td>
+                        <td>@appointment.CustomerRegionName</td>
+                        <td>@appointment.CustomerPhoneNumber</td>
+                        <td>
+                            @if (appointment.Rating != null)
+                            {
+                                <div class="col-6 starrating2 d-flex justify-content-center flex-row-reverse">
+                                    @for (var i = 1; i <= @appointment.Rating; i++)
+                                    {
+                                        <i id="star@i"></i>
+                                        <label for="star@i"></label>
+                                    }
+                                </div>
+                            }
+                            @if (appointment.Rating == null)
+                            {
+                                <span>No rating</span>
+                            }
+                        </td>
+                        <td>
+                            @(appointment.RatingComment ?? "")
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

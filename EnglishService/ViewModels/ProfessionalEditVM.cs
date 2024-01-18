@@ -57,15 +57,5 @@ namespace EnglishService.ViewModels
         [ValidateNever]
         public IEnumerable<KeyValuePair<string, string>> SpecializationItems { get; set; }
 
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<Professional, ProfessionalEditVM>()
-                .ForMember(vm => vm.ImageUrl, opt =>
-                    opt.MapFrom(d =>
-                        d.Images.FirstOrDefault().ImageUrl != null
-                            ? d.Images.FirstOrDefault().ImageUrl
-                            : "/img/professionals/" + d.Images.FirstOrDefault().Id + "." +
-                              d.Images.FirstOrDefault().Extension));
-        }
     }
 }

@@ -40,13 +40,13 @@ namespace EnglishService.Areas.Admin.Controllers
         [Authorize]
         public async Task<IActionResult> Verify(int professionalId, int pageNumber)
         {
-            var doctor = _professionalService.GetProfessionalById(professionalId);
+            var professional = _professionalService.GetProfessionalById(professionalId);
 
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == doctor.UserId);
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == professional.UserId);
 
-            var checkIfDocExists = await _professionalService.VerifyAsync(professionalId, doctor.UserId);
+            var checkIfProfessionalExists = await _professionalService.VerifyAsync(professionalId, professional.UserId);
 
-            if (checkIfDocExists == false)
+            if (checkIfProfessionalExists == false)
             {
                 return new StatusCodeResult(404);
             }
@@ -59,11 +59,11 @@ namespace EnglishService.Areas.Admin.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Delete(int doctorId, int pageNumber)
+        public async Task<IActionResult> Delete(int professionalId, int pageNumber)
         {
-            var checkIfDocExists = await _professionalService.DeleteAsync(doctorId);
+            var checkIfProfessionalExists = await _professionalService.DeleteAsync(professionalId);
 
-            if (checkIfDocExists == false)
+            if (checkIfProfessionalExists == false)
             {
                 return new StatusCodeResult(404);
             }

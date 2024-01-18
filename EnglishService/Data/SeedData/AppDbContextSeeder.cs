@@ -18,12 +18,12 @@
 
             var seeders = new List<ISeeder>
                           {
-                              //new RolesSeeder(),
+                              new RolesSeeder(),
                               new SpecializationsSeeder(),
-                              //new RegionSeeder(),
-                              new AccountSeeder(),
+                              new RegionSeeder(),
+                              //new AccountSeeder(),
                               //new DoctorsSeeder(),
-                              new CustomerSeeder(),
+                              //new CustomerSeeder(),
                               //new AppointmentsSeeder()
                           };
 

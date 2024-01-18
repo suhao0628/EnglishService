@@ -29,7 +29,7 @@ namespace EnglishService.Models
         public string UserId { get; set; }
 
         public virtual AppUser User { get; set; }
-
+        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
         public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
 
 

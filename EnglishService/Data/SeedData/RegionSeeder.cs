@@ -15,23 +15,23 @@ namespace EnglishService.Data.SeedData
             {
                 new Region
                 {
-                    Name = "Sofia",
-                    PostCode = 1000
+                    Name = "Kirovsky",
+                    PostCode = 660000
                 },
                 new Region
                 {
-                    Name = "Plovdiv",
-                    PostCode = 4000
+                    Name = "Leninsky",
+                    PostCode = 664000
                 },
                 new Region
                 {
-                    Name = "Varna",
-                    PostCode = 9000
+                    Name = "Oktyabrsky",
+                    PostCode = 660004
                 },
                 new Region
                 {
-                    Name = "Burgas",
-                    PostCode = 8000
+                    Name = "Sovetsky",
+                    PostCode = 660008
                 },
             };
 

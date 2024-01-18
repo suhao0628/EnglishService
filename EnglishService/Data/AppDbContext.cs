@@ -25,6 +25,8 @@ public class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
 
     public DbSet<Rating> Ratings { get; set; }
 
+    public DbSet<Appointment> Appointments { get; set; }
+
 
 }
 

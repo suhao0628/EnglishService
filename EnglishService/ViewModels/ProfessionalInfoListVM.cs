@@ -36,19 +36,6 @@ namespace EnglishService.ViewModels
 
         public bool IsApproved { get; set; }
 
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<Professional, ProfessionalInfoListVM>()
-                .ForMember(vm => vm.ImageUrl, opt =>
-                    opt.MapFrom(d =>
-                        d.Images.FirstOrDefault().ImageUrl != null
-                            ? d.Images.FirstOrDefault().ImageUrl
-                            : "/img/doctors/" + d.Images.FirstOrDefault().Id + "." +
-                              d.Images.FirstOrDefault().Extension))
-                .ForMember(vm => vm.FullName, opt =>
-                    opt.MapFrom(d => d.FirstName + " " + d.LastName))
-                .ForMember(vm => vm.AverageRating, opt =>
-                    opt.MapFrom(d => d.Ratings.Average(r => r.Number)));
-        }
+        
     }
 }

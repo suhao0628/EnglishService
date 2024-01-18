@@ -1,0 +1,174 @@
+﻿@using System.Globalization;
+@using EnglishService.Utities;
+@model AppointmentsListProfessionalVM
+
+@{
+    ViewBag.Title = "Your appointments";
+}
+
+@* @section head{
+    <style type="text/css">
+        body {
+            background-image: url('/img/appointment.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+} *@
+<div class="container jumbotron-opacity">
+    <h1 class="text-center">@ViewBag.Title</h1>
+
+    <hr />
+
+    @if (!@Model.Appointments.Any())
+    {
+        <div class="row">
+            <div class="col-lg-4 ml-lg-5">
+                <div class="about_text_2">
+                    <p>
+                        Nothing booked yet...
+                    </p>
+                </div>
+                <div class="about_text_highlight">
+                    Book an appointment in 2 easy steps:
+                </div>
+                <div class="about_text_highlight">
+                    <ol>
+                        <li>Find a professional.</li>
+                        <li>Pick date and time.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 ml-lg-5">
+                <a class="btn btn-block btn-info text-white" asp-area="" asp-controller="Professional" asp-action="Index" asp-route-id="1">
+                    Make appointment with Professional
+                </a>
+            </div>
+        </div>
+    }
+
+    @if (@Model.Appointments.Any())
+    {
+        <div class="row">
+            <div class="col-lg-10 ml-lg-5">
+                <div class="about_text_highlight">
+                    <span class="text-danger">*</span> Status
+                </div>
+
+                <div class="about_text_2">
+                    <ol>
+                        <li>
+                            <span class="badge badge-secondary">Pending</span>
+                            - Waiting for the Professional's confirmation.
+                        </li>
+                        <li>
+                            <span class="badge badge-success">Confirmed</span>
+                            - Your appointment is confirmed.Professionals are expecting you on the set time.
+                        </li>
+                        <li>
+                            <span class="badge badge-danger">Declined</span>
+                            - Sorry, the appointment can't happen on the set time.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <h2>Scheduling (@Model.Appointments.Count())</h2>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Appointment Time</th>
+                    <th scope="col">Status <span class="text-danger">*</span></th>
+                    <th scope="col">Professional</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Cancellation</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appointment in Model.Appointments)
+                {
+                    <tr>
+                        <th scope="row">@appointment.DateTime</th>
+                        <td>
+                            @if (appointment.IsConfirmed == true)
+                            {
+                                <span class="badge badge-success">Confirmed</span>
+                            }
+                            else if (appointment.IsConfirmed == false)
+                            {
+                                <span class="badge badge-danger">Declined</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary">Pending</span>
+                            }
+                        </td>
+                        <td><a asp-area="" asp-controller="Professional" asp-action="Profile" asp-route-professionalId="@appointment.ProfessionalId">@appointment.ProfessionalFullName</a></td>
+                        <td>@appointment.ProfessionalRegionName @appointment.ProfessionalAddress</td>
+                        <td>
+                            <a class="btn btn-outline-danger btn-sm"
+                               asp-area="Customer" asp-controller="Appointment" asp-action="CancelAppointment" asp-route-id="@appointment.Id">
+                                Cancel
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+    @if (@Model.PastAppointments.Any())
+    {
+        <h2>History (@Model.PastAppointments.Count())</h2>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Date and Time</th>
+                    <th scope="col">Status <span class="text-info">*</span></th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appointment in Model.PastAppointments)
+                {
+                    <tr>
+                        <th scope="row">@appointment.DateTime</th>
+                        <td>
+                            @if (appointment.IsConfirmed == true)
+                            {
+                                <span class="badge badge-success">Confirmed</span>
+                            }
+                            else if (appointment.IsConfirmed == false)
+                            {
+                                <span class="badge badge-danger">Declined</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary">Pending</span>
+                            }
+                        </td>
+                        <td><a asp-area="" asp-controller="Professional" asp-action="Profile" asp-route-professionalId="@appointment.ProfessionalId">@appointment.ProfessionalFullName</a></td>
+                        <td>@appointment.ProfessionalRegionName, @appointment.ProfessionalAddress</td>
+                        <td>
+                            <a class="btn btn-outline-info btn-sm @(appointment.IsRated ? "disabled" : string.Empty)"
+                               asp-area="PatientRole" asp-controller="Appointment" asp-action="RateAppointment" asp-route-appointmentId="@appointment.Id">
+                                @(appointment.IsRated ? "Already Rated" : "Rate")
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

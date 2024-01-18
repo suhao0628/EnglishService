@@ -48,8 +48,9 @@ namespace EnglishService.Models
         public virtual AppUser User { get; set; }
 
         public virtual ICollection<Image> Images { get; set; } = new List<Image>();
-
+        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
         public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+
         public bool IsApplied { get; set; }
 
         public bool IsApproved { get; set; }

@@ -10,7 +10,6 @@ using System;
 using System.Linq;
 using System.Numerics;
 using System.Collections.Generic;
-using EnglishService.Extensions;
 using AutoMapper;
 
 namespace EnglishService.Services
@@ -46,8 +45,6 @@ namespace EnglishService.Services
             if (model.Image != null)
             {
                 var image = await _appDbContext.Images.FirstOrDefaultAsync(i => i.ProfessionalId == model.Id);
-
-                // couldn't figure out a realistic way to delete seeded doctors image
                 if (image.ImageUrl == null)
                 {
                     File.Delete(imagePath + model.ImageUrl);
@@ -195,27 +192,27 @@ namespace EnglishService.Services
             return null;
         }
 
-        public IEnumerable<T> GetAllAppliedProfessionals<T>(int page, int itemsPerPage)
-        {
-            var model = _professionalRepository.AllAsNoTracking()
-                .Where(p => p.IsApplied && p.IsApproved == false)
-                .OrderBy(d => d.Id)
-                .Skip((page - 1) * itemsPerPage)
-                .Take(itemsPerPage)
-                .To<T>()
-                .ToList();
+        //public IEnumerable<T> GetAllAppliedProfessionals<T>(int page, int itemsPerPage)
+        //{
+        //    var model = _professionalRepository.AllAsNoTracking()
+        //        .Where(p => p.IsApplied && p.IsApproved == false)
+        //        .OrderBy(d => d.Id)
+        //        .Skip((page - 1) * itemsPerPage)
+        //        .Take(itemsPerPage)
+        //        .To<T>()
+        //        .ToList();
 
-            return model;
-        }
+        //    return model;
+        //}
 
         public int GetAppliedAndNotValidatedProfessionalsCount() => _appDbContext.Professionals.Count(d => d.IsApplied && d.IsApproved == false);
 
         public int? GetProfessionalIdByUserId(string userId) => _appDbContext.Professionals.FirstOrDefault(p => p.UserId == userId)?.Id;
 
-        public T GetProfessionalById<T>(int professionalId)
-        {
-            return _professionalRepository.All().Where(d => d.Id == professionalId).To<T>().FirstOrDefault();
-        }
+        //public T GetProfessionalById<T>(int professionalId)
+        //{
+        //    return _professionalRepository.All().Where(d => d.Id == professionalId).To<T>().FirstOrDefault();
+        //}
 
         public Professional GetProfessionalById(int professionalId) => _professionalRepository.All().FirstOrDefault(p => p.Id == professionalId);
 
@@ -237,23 +234,23 @@ namespace EnglishService.Services
 
         public async Task<bool> DeleteAsync(int professionalId)
         {
-            var doctor = GetProfessionalById(professionalId);
+            var professional = GetProfessionalById(professionalId);
 
-            if (doctor == null)
+            if (professional == null)
             {
                 return false;
             }
 
-            _appDbContext.Remove(doctor);
+            _appDbContext.Remove(professional);
 
             await _appDbContext.SaveChangesAsync();
             return true;
         }
 
 
-        public ProfessionalInfoListVM GetProfessionalListById(int doctorId)
+        public ProfessionalInfoListVM GetProfessionalListById(int professionalId)
         {
-            var professional = _appDbContext.Professionals.FirstOrDefault(d => d.Id == doctorId);
+            var professional = _appDbContext.Professionals.Where(p=>p.Id == professionalId).Include(p => p.Specialization).Include(p => p.Region).FirstOrDefault();
             var professionalList = new ProfessionalInfoListVM()
             {
                 UserId = professional.UserId,

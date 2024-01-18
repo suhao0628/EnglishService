@@ -1,18 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
 
 namespace EnglishService.Models
 {
-    public class Rating
+    public class Appointment
     {
+        [Key] 
         public int Id { get; set; }
-        [Required]
-        public int Number { get; set; } // 0-10
-
-        public DateTime CreatedOn { get; set; }
-
-        public string Comment { get; set; }
+        public DateTime DateTime { get; set; }
 
         [ForeignKey(nameof(Professional))]
         public int ProfessionalId { get; set; }
@@ -24,9 +21,14 @@ namespace EnglishService.Models
 
         public virtual Customer Customer { get; set; }
 
-        [ForeignKey(nameof(Appointment))]
-        public int AppointmentId { get; set; }
+        public bool? IsConfirmed { get; set; }
 
-        public virtual Appointment Appointment { get; set; }
+        public bool IsRated { get; set; }
+
+        [ForeignKey(nameof(Rating))]
+        [ValidateNever]
+        public int? RatingId { get; set; }
+
+        public virtual Rating Rating { get; set; }
     }
 }

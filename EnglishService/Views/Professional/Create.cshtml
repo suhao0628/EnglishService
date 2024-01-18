@@ -2,18 +2,9 @@
 @{
     ViewBag.Title = "Apply for a professional account";
     var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
-    var townItems = Model.RegionItems.Select(s => new SelectListItem(s.Value, s.Key));
+    var regionItems = Model.RegionItems.Select(s => new SelectListItem(s.Value, s.Key));
 }
-@section head{
-    <style type="text/css">
-        body {
-            background-image: url('/img/doctor-edit-apply.jpg');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-        }
-    </style>
-}
+
 <div class="container jumbotron-opacity">
     <h1 class="text-center">@ViewBag.Title</h1>
     <hr />
@@ -61,7 +52,7 @@
         </div>
         <div class="form-group">
             <label asp-for="RegionId"></label>
-            <select asp-for="RegionId" class="form-control" asp-items="townItems">
+            <select asp-for="RegionId" class="form-control" asp-items="regionItems">
                 <option selected value="">
                     Choose a Region
                 </option>
@@ -83,7 +74,7 @@
             <span asp-validation-for="Resume" class="text-danger"></span>
         </div>
         <div class="col-md-12 text-center">
-            <input type="submit" class="btn btn-primary mb-2" />
+            <button type="submit" class="btn btn-primary mb-2">Submmit</button>
         </div>
     </form>
 </div>

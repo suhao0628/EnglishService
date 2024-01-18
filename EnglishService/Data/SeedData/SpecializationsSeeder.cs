@@ -13,49 +13,35 @@ namespace EnglishService.Data.SeedData
 
             var specializations = new[]
             {
-                new Specialization
-                {
-                    Name = "Dentist",
-                    Description =
-                        "According to American Dental Association, a dentist is a doctor of oral health. Oral health includes teeth, tongue and gums. A dentist is known to diagnose and treat issues of these three areas."
+                new Specialization{
+                    Name = "Doctor",
+                    Description = "Doctors are professionals in the field of medicine. They diagnose and treat various medical conditions, focusing on maintaining and restoring patients' health."
                 },
                 new Specialization
                 {
-                    Name = "Psychiatrist",
+                    Name = "Psychologist",
                     Description =
-                        "Mental health is a vast field which requires our uttermost attention. Therefore, to treat what goes inside a human brain is difficult, due to the uncertainty of it. A psychiatrist helps treat and diagnose issues of mental health."
+                    "Psychologists are experts in mental health. They diagnose and treat mental health issues, helping individuals cope with emotional and psychological challenges."
                 },
-                new Specialization
-                {
-                    Name = "Cardiothoracic surgeon",
-                    Description =
-                        "Thorax means the chest. A cardiothoracic surgeon treats conditions of the heart, lungs, oesophagus and other organs in the chest."
-                },
-                new Specialization
-                {
-                    Name = "Oncologist",
-                    Description =
-                        "Oncology involves the study of all types of cancers. This involves the radiation, medical and surgical. Oncologists can specialise in one type of cancer as well as the field is vast."
-                },
-                new Specialization
-                {
-                    Name = "Paediatrician",
-                    Description =
-                        "Paediatricians are doctors who treat children. Since a child’s body functions in a different manner from ours, due to many factors like age and growing stages, their illness and health issues are different from an adult. A paediatrician helps in mental behaviour issues and physical health problems."
-                },
-                new Specialization
-                {
-                    Name = "ENT specialist",
-                    Description =
-                        "ENT stands for ear, nose and throat. A specialist who treats and diagnoses the issues and troubles of these three areas. Also known as an otolaryngologist, an ENT specialist is a physician to trained to treat the disorders of ENT."
-                },
-                new Specialization
-                {
-                    Name = "Cardiologist",
-                    Description =
-                        "A cardiologist is a doctor that deals with the cardiovascular system. This means he or she treats any abnormality in our blood vessels and heart. This can include heart disease or condition which requires diagnosis and treatment."
-                }
-            };
+new Specialization
+{
+    Name = "Trainer",
+    Description =
+        "Trainers specialize in physical fitness and exercise. They provide guidance on workouts, nutrition, and overall wellness, helping individuals achieve their fitness goals."
+},
+new Specialization
+{
+    Name = "Legal Advisors",
+    Description =
+        "Legal Advisors are professionals who offer legal consultation and advice. They assist individuals in understanding and navigating legal matters, ensuring compliance with laws and regulations."
+},
+new Specialization
+{
+    Name = "Beautician",
+    Description =
+        "Beauticians are experts in skincare, beauty, and cosmetic treatments. They provide services such as facials, skincare routines, and beauty enhancements to enhance individuals' appearance."
+}
+        };
 
             // Need them in particular order
             foreach (var specialization in specializations)

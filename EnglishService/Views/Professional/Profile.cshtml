@@ -3,17 +3,6 @@
 @model ProfessionalProfileVM
 
 @inject UserManager<AppUser> UserManager
-@section head{
-    <style type="text/css">
-        body {
-            background: rgb(255,255,255);
-            background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 36%, rgba(23,162,184,1) 100%);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-        }
-    </style>
-}
 <div class="container jumbotron-opacity mb-1 mt-1">
     <div class="container">
         <div class="row">
@@ -52,12 +41,12 @@
                 {
                     <div class="text-center row mb-2">
                         <div class="col-6">
-                            <a type="submit" class="btn btn-info " asp-area="Customer" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-doctorId="@Model.Professional.Id">
+                            <a type="submit" class="btn btn-primary " asp-area="Customer" asp-controller="Appointment" asp-action="MakeAnAppointment" asp-route-professionalId="@Model.Professional.Id">
                                 Make an appointment
                             </a>
                         </div>
                         <div class="col-6">
-                            <a type="submit" class="btn btn-success" asp-area="" asp-controller="Chat" asp-action="WithUser" asp-route-id="@Model.Professional.UserId">
+                            <a type="submit" class="btn btn-success" asp-area="" asp-controller="Chat" asp-action="" asp-route-id="@Model.Professional.UserId">
                                 Online consultation
                             </a>
                         </div>
@@ -65,7 +54,7 @@
                 }
             </div>
             <div class="col-lg-7 col-md-6 pl-xl-3">
-                <h3 class="font-weight-normal">Biography of @Model.Professional.FullName</h3>
+                <h3 class="font-weight-normal">CV of @Model.Professional.FullName</h3>
                 <p>@(Model.Professional.Resume ?? "No CV")</p>
 
                 <br />

@@ -32,10 +32,14 @@ builder.Services.AddScoped<ISpecializationService, SpecializationService>();
 
 builder.Services.AddScoped<IRatingService, RatingService>();
 
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+
+builder.Services.AddScoped<IDateTimeParserService, DateTimeParserService>();
+
 builder.Services.AddRazorPages();
 var app = builder.Build();
 
-MappingConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+//MappingConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 // Seed data on application startup
 using (var serviceScope = app.Services.CreateScope())
 {

@@ -59,14 +59,14 @@ namespace EnglishService.Services
 
         public async Task<bool> DeleteAsync(int regionId)
         {
-            var town = await GetRegionByIdAsync(regionId);
+            var region = await GetRegionByIdAsync(regionId);
 
-            if (town == null)
+            if (region == null)
             {
                 return false;
             }
 
-            _appDbContext.Remove(town);
+            _appDbContext.Remove(region);
 
             await _appDbContext.SaveChangesAsync();
 

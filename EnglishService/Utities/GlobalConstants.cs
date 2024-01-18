@@ -17,9 +17,14 @@
         public const string UserEmail = "user@example.com";
 
         public const string CustomerEmail = "customer@example.com";
-        public const int PerPageCount = 6;
+
+        public const int PerPageCount = 3;
 
         public const string DateTimeFormat = "dd/MM/yyyy h:mmtt";
+
+        public const string DateFormat = "dd/MM/yyyy";
+
+        public const string TimeFormat = "h:mmtt";
 
     }
 }

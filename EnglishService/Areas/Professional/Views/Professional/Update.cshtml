@@ -2,17 +2,7 @@
 @{
     ViewBag.Title = "Edit your information";
     var specializationItems = Model.SpecializationItems.Select(s => new SelectListItem(s.Value, s.Key));
-    var townItems = Model.RegionItems.Select(s => new SelectListItem(s.Value, s.Key));
-}
-@section head{
-    <style type="text/css">
-        body {
-            background-image: url('/img/doctor-edit-apply.jpg');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-        }
-    </style>
+    var regionItems = Model.RegionItems.Select(s => new SelectListItem(s.Value, s.Key));
 }
 <div class="container jumbotron-opacity">
     <h1 class="text-center">@ViewBag.Title</h1>
@@ -71,7 +61,7 @@
         </div>
         <div class="form-group">
             <label asp-for="RegionId"></label>
-            <select asp-for="RegionId" class="form-control" asp-items="townItems"></select>
+            <select asp-for="RegionId" class="form-control" asp-items="regionItems"></select>
             <span asp-validation-for="RegionId" class="text-danger"></span>
         </div>
         <div class="form-group">
